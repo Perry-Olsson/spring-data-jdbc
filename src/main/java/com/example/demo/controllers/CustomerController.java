@@ -1,17 +1,16 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Customer;
-import com.example.demo.entities.Product;
-import com.example.demo.entities.ProductRef;
-import com.example.demo.repositories.CustomerRepository;
 import com.example.demo.repositories.ProductRepository;
+import com.example.demo.repositories.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 public class CustomerController {
@@ -26,10 +25,15 @@ public class CustomerController {
 
     @GetMapping("/customer/getByFirstName/{firstName}")
     List<Customer> getByFirstName(@PathVariable("firstName") String firstName) {
-        List<Customer> customers = customerRepository.findByFirstName(firstName)
-                .stream()
-                .peek((Customer c) -> c.setPurchasedProducts(productRepository.findAllById(c.getProductIds()))).collect(Collectors.toList());
-        return customers;
+        return customerRepository.findByFirstName(firstName);
+    }
+
+    @GetMapping("/customer/{id}")
+    Optional<Customer> getById(@PathVariable("id") long id, @RequestParam(name = "includeCancelledPurchases", required = false, defaultValue = "false") Boolean includeCancelledPurchases) {
+        if (!includeCancelledPurchases) {
+            return customerRepository.findByIdWithOutCancelledPurchases(id);
+        }
+        return customerRepository.findById(id);
     }
 
     @GetMapping("/customer/getByLastName/{lastName}")
