@@ -1,8 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Customer;
-import com.example.demo.repositories.ProductRepository;
-import com.example.demo.repositories.customer.CustomerRepository;
+import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,30 +13,25 @@ import java.util.Optional;
 
 @RestController
 public class CustomerController {
-    CustomerRepository customerRepository;
-    ProductRepository productRepository;
+    CustomerService customerService;
 
     @Autowired
-    CustomerController(CustomerRepository customerRepository, ProductRepository productRepository) {
-        this.customerRepository = customerRepository;
-        this.productRepository = productRepository;
+    CustomerController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     @GetMapping("/customer/getByFirstName/{firstName}")
     List<Customer> getByFirstName(@PathVariable("firstName") String firstName) {
-        return customerRepository.findByFirstName(firstName);
+        return customerService.getByFirstName(firstName);
     }
 
     @GetMapping("/customer/{id}")
     Optional<Customer> getById(@PathVariable("id") long id, @RequestParam(name = "includeCancelledPurchases", required = false, defaultValue = "false") Boolean includeCancelledPurchases) {
-        if (!includeCancelledPurchases) {
-            return customerRepository.findByIdWithOutCancelledPurchases(id);
-        }
-        return customerRepository.findById(id);
+        return customerService.getById(id, includeCancelledPurchases);
     }
 
     @GetMapping("/customer/getByLastName/{lastName}")
-    List<Customer> ping(@PathVariable("lastName") String lastName) {
-        return customerRepository.findByLastName(lastName);
+    List<Customer> getByLastName(@PathVariable("lastName") String lastName) {
+        return customerService.getByLastName(lastName);
     }
 }
