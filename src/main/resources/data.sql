@@ -6,4 +6,4 @@ INSERT INTO product (id, sku, name) VALUES (1, 1, 'basketball');
 INSERT INTO product (id, sku, name, description) VALUES (2, 2, 'soccer ball', 'Full sized black and white soccer ball');
 INSERT INTO product (id, sku, name, description) VALUES (3, 3, 'baseball', 'Standard size leather stitched baseball');
 
--- INSERT INTO 'order' (id, customer_id, product_id) VALUES (1, 2, 3);
+INSERT INTO purchase (id, customer_id, product_id) VALUES (1, 2, 3);

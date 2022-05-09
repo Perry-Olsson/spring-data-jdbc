@@ -12,12 +12,12 @@ CREATE TABLE product (
      name VARCHAR(200) NOT NULL,
      description TEXT
 );
---
--- DROP TABLE IF EXISTS purchase;
--- CREATE TABLE purchase (
---     id LONG AUTO_INCREMENT PRIMARY KEY,
---     customer_id LONG,
---     product_id LONG,
---     FOREIGN KEY (customer_id) REFERENCES customer(id),
---     FOREIGN KEY (product_id) REFERENCES product(id)
--- );
+
+DROP TABLE IF EXISTS purchase;
+CREATE TABLE purchase (
+    id LONG AUTO_INCREMENT PRIMARY KEY,
+    customer_id LONG,
+    product_id LONG,
+    CONSTRAINT customer_id_fk FOREIGN KEY (customer_id) REFERENCES customer(id),
+    CONSTRAINT product_id_fk FOREIGN KEY (product_id) REFERENCES product(id)
+);
