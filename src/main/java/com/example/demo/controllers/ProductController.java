@@ -5,6 +5,7 @@ import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -21,5 +22,10 @@ public class ProductController {
     @GetMapping("/product/{name}")
     List<Product> findAllByName(@PathVariable String name) {
         return productRepository.findByName(name);
+    }
+
+    @GetMapping("/product/purchased/{customerId}")
+    List<Product> getByCustomerPurchaseId(@PathVariable long customerId, @RequestParam(value = "includeCancelledPurchases", required = false) boolean includeCancelledPurchases) {
+        return productRepository.findByCustomerPurchaseId(customerId, includeCancelledPurchases);
     }
 }

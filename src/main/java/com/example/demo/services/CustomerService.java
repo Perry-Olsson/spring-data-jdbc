@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Customer;
+import com.example.demo.entities.Product;
 import com.example.demo.repositories.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -28,5 +29,9 @@ public class CustomerService {
             return repository.findByIdWithOutCancelledPurchases(id);
         }
         return repository.findById(id);
+    }
+
+    public List<Product> getPurchasedProducts() {
+        return repository.findPurchasedProducts(2);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.entities.Customer;
+import com.example.demo.entities.Product;
 import com.example.demo.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,5 +34,10 @@ public class CustomerController {
     @GetMapping("/customer/getByLastName/{lastName}")
     List<Customer> getByLastName(@PathVariable("lastName") String lastName) {
         return customerService.getByLastName(lastName);
+    }
+
+    @GetMapping("/customer/purchasedProducts")
+    List<Product> getPurchasedProducts() {
+        return customerService.getPurchasedProducts();
     }
 }
