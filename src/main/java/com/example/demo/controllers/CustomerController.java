@@ -36,8 +36,8 @@ public class CustomerController {
         return customerService.getByLastName(lastName);
     }
 
-    @GetMapping("/customer/purchasedProducts")
-    List<Product> getPurchasedProducts() {
-        return customerService.getPurchasedProducts();
+    @GetMapping("/customer/purchasedProducts/{customerId}")
+    List<Product> getPurchasedProducts(@PathVariable(value = "customerId") long customerId) {
+        return customerService.getPurchasedProducts(customerId);
     }
 }

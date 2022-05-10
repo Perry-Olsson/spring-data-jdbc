@@ -31,7 +31,7 @@ public class CustomerService {
         return repository.findById(id);
     }
 
-    public List<Product> getPurchasedProducts() {
-        return repository.findPurchasedProducts(2);
+    public List<Product> getPurchasedProducts(long customerId) {
+        return repository.findPurchasedProducts(customerId);
     }
 }
