@@ -13,13 +13,14 @@ import java.util.Optional;
 @Repository
 public class PurchaseQueriesImpl extends BaseCustomerMethods implements PurchaseQueries {
     private static final String PURCHASES_BY_CUSTOMER_ID_NOT_CANCELLED_QUERY = """
-            SELECT PURCHASE.ID, PURCHASE.PRODUCT_ID FROM PURCHASE WHERE PURCHASE.CUSTOMER_ID = ? AND PURCHASE.CANCELLED = FALSE;
-            """;
+    SELECT PURCHASE.ID, PURCHASE.PRODUCT_ID FROM PURCHASE WHERE PURCHASE.CUSTOMER_ID = ? AND PURCHASE.CANCELLED = FALSE;
+    """;
 
     @Autowired
     PurchaseQueriesImpl(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
     }
+
     @Override
     public Optional<Customer> findByIdWithOutCancelledPurchases(long id) {
         Optional<Customer> customer = findById(id);
