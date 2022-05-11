@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public abstract class BaseCustomerMethods {
     private final static String CUSTOMER_BY_ID_QUERY = """
-    SELECT CUSTOMER.ID, CUSTOMER.FIRST_NAME, CUSTOMER.LAST_NAME FROM CUSTOMER WHERE CUSTOMER.ID = ?;
+    SELECT customer.id, customer.first_name, customer.last_name FROM customer WHERE customer.id = ?;
     """;
 
     JdbcTemplate jdbcTemplate;

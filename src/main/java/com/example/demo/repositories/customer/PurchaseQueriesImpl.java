@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public class PurchaseQueriesImpl extends BaseCustomerMethods implements PurchaseQueries {
     private static final String PURCHASES_BY_CUSTOMER_ID_NOT_CANCELLED_QUERY = """
-    SELECT PURCHASE.ID, PURCHASE.PRODUCT_ID FROM PURCHASE WHERE PURCHASE.CUSTOMER_ID = ? AND PURCHASE.CANCELLED = FALSE;
+    SELECT purchase.id, purchase.product_id FROM purchase WHERE purchase.customer_id = ? AND purchase.cancelled = FALSE;
     """;
 
     @Autowired

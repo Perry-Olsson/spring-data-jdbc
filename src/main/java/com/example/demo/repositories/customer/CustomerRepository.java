@@ -16,10 +16,10 @@ public interface CustomerRepository extends CrudRepository<Customer, Long>, Purc
     List<Customer> findByLastName(String lastName);
 
     @Query("""
-    SELECT DISTINCT PRODUCT.ID, PRODUCT.SKU, PRODUCT.NAME, PRODUCT.DESCRIPTION FROM CUSTOMER
-    INNER JOIN PURCHASE ON PURCHASE.CUSTOMER_ID = CUSTOMER.ID
-    INNER JOIN PRODUCT ON PRODUCT.ID = PURCHASE.PRODUCT_ID
-    WHERE CUSTOMER.ID = :customer_id
+    SELECT DISTINCT product.id, product.sku, product.name, product.description FROM customer
+    INNER JOIN purchase ON purchase.customer_id = customer.id
+    INNER JOIN product ON product.id = purchase.product_id
+    WHERE customer.id = :customer_id
     """)
     List<Product> findPurchasedProducts(@Param(value = "customer_id") long customerId);
 }
