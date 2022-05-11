@@ -3,6 +3,7 @@ package com.example.demo.controllers;
 import com.example.demo.entities.Product;
 import com.example.demo.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.http.ResponseEntity.ok;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class ProductController extends BaseController {
+public class ProductController {
     ProductRepository productRepository;
 
     @Autowired
@@ -22,6 +23,6 @@ public class ProductController extends BaseController {
     @GetMapping("/product/{name}")
     ResponseEntity<List<Product>> findAllByName(@PathVariable String name) {
         List<Product> products = productRepository.findByName(name);
-        return httpOk().body(products);
+        return ok().body(products);
     }
 }
