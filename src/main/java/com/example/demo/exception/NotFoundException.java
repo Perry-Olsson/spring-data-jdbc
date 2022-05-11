@@ -1,12 +1,15 @@
 package com.example.demo.exception;
 
+
 import lombok.Getter;
 
+@Getter
 public class NotFoundException extends Exception {
-    @Getter
-    private static final int STATUS_CODE = 404;
+    public static final int STATUS_CODE = 404;
+    private final Error error;
 
-    public NotFoundException(String message) {
+    public NotFoundException(Error error, String message) {
         super(message);
+        this.error = error;
     }
 }

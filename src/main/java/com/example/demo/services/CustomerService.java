@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Product;
+import com.example.demo.exception.Error;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.repositories.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class CustomerService {
                 : repository.findByIdWithOutCancelledPurchases(id);
 
         if (customer.isEmpty()) {
-            throw new NotFoundException(String.format("Customer with id: %d was not found", id));
+            throw new NotFoundException(Error.CUSTOMER_ID_NOT_FOUND, String.format("Customer with id: %d was not found", id));
         }
 
         return customer.get();
