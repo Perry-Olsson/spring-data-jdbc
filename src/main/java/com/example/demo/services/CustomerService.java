@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Customer;
 import com.example.demo.entities.Product;
+import com.example.demo.exception.NotFoundException;
 import com.example.demo.repositories.customer.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,11 +25,16 @@ public class CustomerService {
         return repository.findByLastName(lastName);
     }
 
-    public Optional<Customer> getById(long id, Boolean includeCancelledPurchases) {
-        if (!includeCancelledPurchases) {
-            return repository.findByIdWithOutCancelledPurchases(id);
+    public Customer getById(long id, Boolean includeCancelledPurchases) throws NotFoundException {
+        Optional<Customer> customer = includeCancelledPurchases
+                ? repository.findById(id)
+                : repository.findByIdWithOutCancelledPurchases(id);
+
+        if (customer.isEmpty()) {
+            throw new NotFoundException(String.format("Customer with id: %d was not found", id));
         }
-        return repository.findById(id);
+
+        return customer.get();
     }
 
     public List<Product> getPurchasedProducts(long customerId) {

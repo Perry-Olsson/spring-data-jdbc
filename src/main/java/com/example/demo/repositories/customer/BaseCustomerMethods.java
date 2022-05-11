@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -21,7 +22,7 @@ public abstract class BaseCustomerMethods {
     }
 
     protected Optional<Customer> findById(long id) {
-        Customer customer = jdbcTemplate.queryForObject(CUSTOMER_BY_ID_QUERY, new CustomerMapper(), id);
-        return Optional.ofNullable(customer);
+        List<Customer> customer = jdbcTemplate.query(CUSTOMER_BY_ID_QUERY, new CustomerMapper(), id);
+        return Optional.ofNullable(customer.isEmpty() ? null : customer.get(0));
     }
 }

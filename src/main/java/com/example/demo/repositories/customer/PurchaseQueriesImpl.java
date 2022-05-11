@@ -24,8 +24,11 @@ public class PurchaseQueriesImpl extends BaseCustomerMethods implements Purchase
     @Override
     public Optional<Customer> findByIdWithOutCancelledPurchases(long id) {
         Optional<Customer> customer = findById(id);
+        if (customer.isEmpty()) {
+            return customer;
+        }
         List<Purchase> purchases = jdbcTemplate.query(PURCHASES_BY_CUSTOMER_ID_NOT_CANCELLED_QUERY, new PurchaseMapper(), id);
-        customer.orElse(new Customer()).setPurchases(purchases);
+        customer.get().setPurchases(purchases);
         return customer;
     }
 }
