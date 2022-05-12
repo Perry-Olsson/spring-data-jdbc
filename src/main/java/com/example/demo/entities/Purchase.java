@@ -14,4 +14,6 @@ public class Purchase {
     Long customerId;
     long productId;
     boolean cancelled;
+    @Transient
+    Product product;
 }

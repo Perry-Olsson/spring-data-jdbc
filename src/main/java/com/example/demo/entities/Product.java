@@ -12,4 +12,6 @@ public class Product {
     long sku;
     String name;
     String description;
+    String categoryName;
+    String categoryDescription;
 }

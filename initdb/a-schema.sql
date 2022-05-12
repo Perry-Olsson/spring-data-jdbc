@@ -4,11 +4,17 @@ CREATE TABLE IF NOT EXISTS customer (
     last_name VARCHAR(100)
 );
 
+CREATE TABLE IF NOT EXISTS product_category (
+    category_name VARCHAR(60) PRIMARY KEY,
+    category_description VARCHAR(4000)
+);
+
 CREATE TABLE IF NOT EXISTS product (
      id INT AUTO_INCREMENT PRIMARY KEY,
      sku INT NOT NULL UNIQUE,
      name VARCHAR(200) NOT NULL,
-     description VARCHAR(4000)
+     description VARCHAR(4000),
+     category_name VARCHAR(60) REFERENCES product_category(category_name)
 );
 
 CREATE TABLE IF NOT EXISTS purchase (
